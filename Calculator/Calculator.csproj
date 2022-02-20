@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Util\WindowUtil.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,19 +64,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CalculateService.cs" />
-    <Compile Include="Command\CommandType.cs" />
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\PlusComand.cs" />
+    <Compile Include="Command\AbstractCommand.cs" />
+    <Compile Include="Command\Impl\LnCommand.cs" />
+    <Compile Include="Dto\ContextSnapshot.cs" />
+    <Compile Include="Command\Impl\DivideCommand.cs" />
+    <Compile Include="Command\Impl\MinusCommand.cs" />
+    <Compile Include="Command\Impl\MultiplyCommand.cs" />
+    <Compile Include="Command\Impl\PlusComand.cs" />
+    <Compile Include="Command\Impl\PowCommand.cs" />
+    <Compile Include="Command\Impl\RadicalCommand.cs" />
+    <Compile Include="Converter\ContextConverter.cs" />
     <Compile Include="Dto\Arguments.cs" />
-    <Compile Include="Expression.cs" />
+    <Compile Include="Dto\CalculationContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandRecorder.cs" />
+    <Compile Include="Component\CommandRecorder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

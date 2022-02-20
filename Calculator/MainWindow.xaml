@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         Title="Calculator"
-        FontSize="48">
+        FontSize="48"
+        MinWidth="400"
+        MinHeight="500">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -25,37 +28,86 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Margin="5 5 5 5" CornerRadius="10" BorderThickness="2" BorderBrush="Black">
-            <TextBlock x:Name="Screen" TextAlignment="Right">0</TextBlock>
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ExpressionScreen" Grid.Row="0" TextAlignment="Right" FontSize="26"></TextBlock>
+                <TextBox x:Name="MainScreen" Grid.Row="1" TextAlignment="Right" FontSize="52" BorderThickness="0" KeyDown="Screen_KeyDown">0</TextBox>
+            </Grid>
         </Border>
-        
-        <Button Grid.Column="0" Grid.Row="1">CE</Button>
-        <Button Grid.Column="0" Grid.Row="2" Click="Num_7_Button_Click">7</Button>
-        <Button Grid.Column="0" Grid.Row="3" Click="Num_4_Button_Click">4</Button>
-        <Button Grid.Column="0" Grid.Row="4" Click="Num_1_Button_Click">1</Button>
-        <Button Grid.Column="0" Grid.Row="5" Click="Num_00_Button_Click">00</Button>
 
-        <Button Grid.Column="1" Grid.Row="1" Click="Clear_Button_Click">C</Button>
-        <Button Grid.Column="1" Grid.Row="2" Click="Num_8_Button_Click">8</Button>
-        <Button Grid.Column="1" Grid.Row="3" Click="Num_5_Button_Click">5</Button>
-        <Button Grid.Column="1" Grid.Row="4" Click="Num_2_Button_Click">2</Button>
-        <Button Grid.Column="1" Grid.Row="5" Click="Num_0_Button_Click">0</Button>
+        <Button Grid.Column="0" Grid.Row="2" Click="CE_Button_Click">CE</Button>
+        <Button Grid.Column="0" Grid.Row="3" Click="Num_7_Button_Click">7</Button>
+        <Button Grid.Column="0" Grid.Row="4" Click="Num_4_Button_Click">4</Button>
+        <Button Grid.Column="0" Grid.Row="5" Click="Num_1_Button_Click">1</Button>
+        <Button Grid.Column="0" Grid.Row="6" Click="Num_00_Button_Click">00</Button>
 
-        <Button Grid.Column="2" Grid.Row="1" Click="BackSpace_Button_Click">&lt;-</Button>
-        <Button Grid.Column="2" Grid.Row="2" Click="Num_9_Button_Click">9</Button>
-        <Button Grid.Column="2" Grid.Row="3" Click="Num_6_Button_Click">6</Button>
-        <Button Grid.Column="2" Grid.Row="4" Click="Num_3_Button_Click">3</Button>
-        <Button Grid.Column="2" Grid.Row="5" Click="Dot_Button_Click">.</Button>
+        <Button Grid.Column="1" Grid.Row="2" Click="Clear_Button_Click">C</Button>
+        <Button Grid.Column="1" Grid.Row="3" Click="Num_8_Button_Click">8</Button>
+        <Button Grid.Column="1" Grid.Row="4" Click="Num_5_Button_Click">5</Button>
+        <Button Grid.Column="1" Grid.Row="5" Click="Num_2_Button_Click">2</Button>
+        <Button Grid.Column="1" Grid.Row="6" Click="Num_0_Button_Click">0</Button>
 
-        <Button Grid.Column="3" Grid.Row="1">/</Button>
-        <Button Grid.Column="3" Grid.Row="2">*</Button>
-        <Button Grid.Column="3" Grid.Row="3">-</Button>
-        <Button Grid.Column="3" Grid.Row="4" Click="Plus_Button_Click">+</Button>
-        <Button Grid.Column="3" Grid.Row="5" Click="Equal_Button_Click">=</Button>
+        <Button Grid.Column="2" Grid.Row="2" Click="BackSpace_Button_Click">⌫</Button>
+        <Button Grid.Column="2" Grid.Row="3" Click="Num_9_Button_Click">9</Button>
+        <Button Grid.Column="2" Grid.Row="4" Click="Num_6_Button_Click">6</Button>
+        <Button Grid.Column="2" Grid.Row="5" Click="Num_3_Button_Click">3</Button>
+        <Button Grid.Column="2" Grid.Row="6" Click="Dot_Button_Click">.</Button>
 
-        <Button Grid.Column="4" Grid.Row="1">PI</Button>
-        <Button Grid.Column="4" Grid.Row="2">e</Button>
-        <Button Grid.Column="4" Grid.Row="3">sqrt</Button>
-        <Button Grid.Column="4" Grid.Row="4">pow</Button>
-        <Button Grid.Column="4" Grid.Row="5">ln</Button>
+        <Button Grid.Column="3" Grid.Row="2" Click="Divide_Button_Click" x:Name="DivideButton">/</Button>
+        <Button Grid.Column="3" Grid.Row="3" Click="Multiply_Button_Click" x:Name="MultiplyButton">*</Button>
+        <Button Grid.Column="3" Grid.Row="4" Click="Minus_Button_Click" x:Name="MinusButton">-</Button>
+        <Button Grid.Column="3" Grid.Row="5" Click="Plus_Button_Click" x:Name="PlusButton">+</Button>
+        <Button Grid.Column="3" Grid.Row="6" Click="Equal_Button_Click">=</Button>
+
+        <Button Grid.Column="4" Grid.Row="2" Click="Pi_Button_Click">𝝅</Button>
+        <Button Grid.Column="4" Grid.Row="3" Click="E_Button_Click">e</Button>
+        <Button Grid.Column="4" Grid.Row="4" Click="Radical_Button_Click" x:Name="RadicalButton">√x</Button>
+        <Button Grid.Column="4" Grid.Row="5" Click="Pow_Button_Click" x:Name="PowButton">x^y</Button>
+        <Button Grid.Column="4" Grid.Row="6" Click="Ln_Button_Click" x:Name="LnButton">ln</Button>
     </Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontFamily" Value="sanserif"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="Yellow" Offset="0.0" />
+                        <GradientStop Color="Red" Offset="0.25" />
+                        <GradientStop Color="Blue" Offset="0.75" />
+                        <GradientStop Color="LimeGreen" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation 
+                                Storyboard.TargetProperty="FontSize"
+                                To="45" 
+                                Duration="0:0:0.1" 
+                                AutoReverse="True"/>
+                            <ThicknessAnimation
+                                From="0"
+                                To="2"
+                                Duration="0:0:0.1"
+                                Storyboard.TargetProperty="Margin"
+                                AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+ 
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red"></Setter>
+                </Trigger>
+ 
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 </Window>

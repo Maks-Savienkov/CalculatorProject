@@ -8,9 +8,18 @@ namespace Calculator.Dto
 {
     public class Arguments
     {
-        private double firstArg, secondArg;
 
-        private Arguments(double firstArg, double secondArg)
+        private double firstArg;
+        private double? secondArg;
+
+        public double FirstArg { get => firstArg; set => firstArg = value; }
+        public double? SecondArg { get => secondArg; set => secondArg = value; }
+
+        public Arguments()
+        {
+        }
+
+        private Arguments(double firstArg, double? secondArg)
         {
             this.firstArg = firstArg;
             this.secondArg = secondArg;
@@ -20,10 +29,45 @@ namespace Calculator.Dto
         {
             return new ArgumentsBuilder();
         }
-        
+
+        public double sum()
+        {
+            return firstArg + secondArg.Value;
+        }
+
+        public double diff()
+        {
+            return firstArg - secondArg.Value;
+        }
+
+        public double product()
+        {
+            return firstArg * secondArg.Value;
+        }
+
+        public double fraction()
+        {
+            if (secondArg == 0) 
+            {
+                throw new DivideByZeroException("Division by zero");
+            }
+            return firstArg / secondArg.Value;
+        }
+
+        public double pow() 
+        {
+            if (FirstArg <= 0) 
+            {
+                throw new ArithmeticException("Error");
+            }
+
+            return Math.Pow(firstArg, secondArg.Value);
+        }
+
         public class ArgumentsBuilder
         {
-            private double firstArg, secondArg;
+            private double firstArg;
+            private double? secondArg;
 
             public ArgumentsBuilder FirstArg(double firstArg)
             {
@@ -31,7 +75,7 @@ namespace Calculator.Dto
                 return this;
             }
 
-            public ArgumentsBuilder SecondArg(double secondArg)
+            public ArgumentsBuilder SecondArg(double? secondArg)
             {
                 this.secondArg = secondArg;
                 return this;
@@ -43,6 +87,4 @@ namespace Calculator.Dto
             }
         }
     }
-
-    
 }
