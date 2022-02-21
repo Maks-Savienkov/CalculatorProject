@@ -10,7 +10,7 @@ namespace Calculator.Command
     public class DivideCommand : AbstractCommand
     {
 
-        private const string DIVIDE_SIGN = " / ";
+        private const string DIVIDE_SIGN = " ÷ ";
 
         public DivideCommand(Button button) : base(button)
         {
@@ -19,10 +19,10 @@ namespace Calculator.Command
         public override double Calculate()
         {
             CommandRecorder.Record(this);
-            return Snapshot.Arguments.fraction();
+            return Snapshot.Arguments.Fraction();
         }
 
-        public override string getSign()
+        public override string GetSign()
         {
             return DIVIDE_SIGN;
         }

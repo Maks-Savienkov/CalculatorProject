@@ -1,14 +1,66 @@
 ﻿<Window x:Class="Calculator.MainWindow"
+        x:Name="CalculatorWindow"
+        Title="Calculator"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Calculator"
-        FontSize="48"
-        MinWidth="400"
-        MinHeight="500">
+        FontSize="40"
+        Width="450" Height="600" MinWidth="425" MinHeight="525">
+
+    <Window.Resources>
+        <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="1 1 1 1"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="7" BorderBrush="Black" BorderThickness="2" Background="#DDDDDD">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="Gray"/>
+                            </Trigger>
+                            
+                            <!--<Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#B4B4B4"/>
+                            </Trigger>-->
+
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.100" 
+                                                        To="#B4B4B4" 
+                                                        Storyboard.TargetName="border" 
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.100" 
+                                                        Storyboard.TargetName="border" 
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -27,87 +79,57 @@
             <ColumnDefinition x:Name="HoldMenu"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Margin="5 5 5 5" CornerRadius="10" BorderThickness="2" BorderBrush="Black">
+        <Border Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" 
+                Margin="5 5 5 5" 
+                CornerRadius="10" BorderThickness="2" BorderBrush="Black">
             <Grid VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ExpressionScreen" Grid.Row="0" TextAlignment="Right" FontSize="26"></TextBlock>
-                <TextBox x:Name="MainScreen" Grid.Row="1" TextAlignment="Right" FontSize="52" BorderThickness="0" KeyDown="Screen_KeyDown">0</TextBox>
+                <TextBox x:Name="MainScreen" Grid.Row="1" TextAlignment="Right" FontSize="52" BorderThickness="0" KeyDown="Screen_KeyDown" Margin="0 0 1 0">0</TextBox>
             </Grid>
         </Border>
 
-        <Button Grid.Column="0" Grid.Row="2" Click="CE_Button_Click">CE</Button>
-        <Button Grid.Column="0" Grid.Row="3" Click="Num_7_Button_Click">7</Button>
-        <Button Grid.Column="0" Grid.Row="4" Click="Num_4_Button_Click">4</Button>
-        <Button Grid.Column="0" Grid.Row="5" Click="Num_1_Button_Click">1</Button>
-        <Button Grid.Column="0" Grid.Row="6" Click="Num_00_Button_Click">00</Button>
+        <Button x:Name="BurgerButton" 
+                Grid.Column="0" Grid.Row="0" 
+                Width="50" Height="50" Margin="10 10 0 0" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="28"
+                Style="{StaticResource RoundCorner}" Content="☰"
+                Click="BurgerButton_Click"/>
+        
+        <Button Grid.Column="0" Grid.Row="2" Click="CE_Button_Click" Style="{StaticResource RoundCorner}">CE</Button>
+        <Button Grid.Column="0" Grid.Row="3" Click="Num_7_Button_Click" Style="{StaticResource RoundCorner}">7</Button>
+        <Button Grid.Column="0" Grid.Row="4" Click="Num_4_Button_Click" Style="{StaticResource RoundCorner}">4</Button>
+        <Button Grid.Column="0" Grid.Row="5" Click="Num_1_Button_Click" Style="{StaticResource RoundCorner}">1</Button>
+        <Button Grid.Column="0" Grid.Row="6" Click="Num_00_Button_Click" Style="{StaticResource RoundCorner}">00</Button>
 
-        <Button Grid.Column="1" Grid.Row="2" Click="Clear_Button_Click">C</Button>
-        <Button Grid.Column="1" Grid.Row="3" Click="Num_8_Button_Click">8</Button>
-        <Button Grid.Column="1" Grid.Row="4" Click="Num_5_Button_Click">5</Button>
-        <Button Grid.Column="1" Grid.Row="5" Click="Num_2_Button_Click">2</Button>
-        <Button Grid.Column="1" Grid.Row="6" Click="Num_0_Button_Click">0</Button>
+        <Button Grid.Column="1" Grid.Row="2" Click="Clear_Button_Click" Style="{StaticResource RoundCorner}">C</Button>
+        <Button Grid.Column="1" Grid.Row="3" Click="Num_8_Button_Click" Style="{StaticResource RoundCorner}">8</Button>
+        <Button Grid.Column="1" Grid.Row="4" Click="Num_5_Button_Click" Style="{StaticResource RoundCorner}">5</Button>
+        <Button Grid.Column="1" Grid.Row="5" Click="Num_2_Button_Click" Style="{StaticResource RoundCorner}">2</Button>
+        <Button Grid.Column="1" Grid.Row="6" Click="Num_0_Button_Click" Style="{StaticResource RoundCorner}">0</Button>
 
-        <Button Grid.Column="2" Grid.Row="2" Click="BackSpace_Button_Click">⌫</Button>
-        <Button Grid.Column="2" Grid.Row="3" Click="Num_9_Button_Click">9</Button>
-        <Button Grid.Column="2" Grid.Row="4" Click="Num_6_Button_Click">6</Button>
-        <Button Grid.Column="2" Grid.Row="5" Click="Num_3_Button_Click">3</Button>
-        <Button Grid.Column="2" Grid.Row="6" Click="Dot_Button_Click">.</Button>
+        <Button Grid.Column="2" Grid.Row="2" Click="BackSpace_Button_Click" Style="{StaticResource RoundCorner}">⌫</Button>
+        <Button Grid.Column="2" Grid.Row="3" Click="Num_9_Button_Click" Style="{StaticResource RoundCorner}">9</Button>
+        <Button Grid.Column="2" Grid.Row="4" Click="Num_6_Button_Click" Style="{StaticResource RoundCorner}">6</Button>
+        <Button Grid.Column="2" Grid.Row="5" Click="Num_3_Button_Click" Style="{StaticResource RoundCorner}">3</Button>
+        <Button Grid.Column="2" Grid.Row="6" Click="Dot_Button_Click" Style="{StaticResource RoundCorner}">.</Button>
 
-        <Button Grid.Column="3" Grid.Row="2" Click="Divide_Button_Click" x:Name="DivideButton">/</Button>
-        <Button Grid.Column="3" Grid.Row="3" Click="Multiply_Button_Click" x:Name="MultiplyButton">*</Button>
-        <Button Grid.Column="3" Grid.Row="4" Click="Minus_Button_Click" x:Name="MinusButton">-</Button>
-        <Button Grid.Column="3" Grid.Row="5" Click="Plus_Button_Click" x:Name="PlusButton">+</Button>
-        <Button Grid.Column="3" Grid.Row="6" Click="Equal_Button_Click">=</Button>
+        <Button Grid.Column="3" Grid.Row="2" Click="Divide_Button_Click" x:Name="DivideButton" Style="{StaticResource RoundCorner}">÷</Button>
+        <Button Grid.Column="3" Grid.Row="3" Click="Multiply_Button_Click" x:Name="MultiplyButton" Style="{StaticResource RoundCorner}">×</Button>
+        <Button Grid.Column="3" Grid.Row="4" Click="Minus_Button_Click" x:Name="MinusButton" Style="{StaticResource RoundCorner}">-</Button>
+        <Button Grid.Column="3" Grid.Row="5" Click="Plus_Button_Click" x:Name="PlusButton" Style="{StaticResource RoundCorner}">+</Button>
+        <Button Grid.Column="3" Grid.Row="6" Click="Equal_Button_Click" Style="{StaticResource RoundCorner}">=</Button>
 
-        <Button Grid.Column="4" Grid.Row="2" Click="Pi_Button_Click">𝝅</Button>
-        <Button Grid.Column="4" Grid.Row="3" Click="E_Button_Click">e</Button>
-        <Button Grid.Column="4" Grid.Row="4" Click="Radical_Button_Click" x:Name="RadicalButton">√x</Button>
-        <Button Grid.Column="4" Grid.Row="5" Click="Pow_Button_Click" x:Name="PowButton">x^y</Button>
-        <Button Grid.Column="4" Grid.Row="6" Click="Ln_Button_Click" x:Name="LnButton">ln</Button>
+        <Button Grid.Column="4" Grid.Row="2" Click="Pi_Button_Click" Style="{StaticResource RoundCorner}" FontStyle="Italic">π</Button>
+        <Button Grid.Column="4" Grid.Row="3" Click="E_Button_Click" Style="{StaticResource RoundCorner}">e</Button>
+        <Button Grid.Column="4" Grid.Row="4" Click="Radical_Button_Click" x:Name="RadicalButton" Style="{StaticResource RoundCorner}">√x</Button>
+        <Button Grid.Column="4" Grid.Row="5" Click="Pow_Button_Click" x:Name="PowButton" Style="{StaticResource RoundCorner}">xⁿ</Button>
+        <Button Grid.Column="4" Grid.Row="6" Click="Ln_Button_Click" x:Name="LnButton" Style="{StaticResource RoundCorner}">ln</Button>
     </Grid>
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="FontFamily" Value="sanserif"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="BorderBrush">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="Yellow" Offset="0.0" />
-                        <GradientStop Color="Red" Offset="0.25" />
-                        <GradientStop Color="Blue" Offset="0.75" />
-                        <GradientStop Color="LimeGreen" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation 
-                                Storyboard.TargetProperty="FontSize"
-                                To="45" 
-                                Duration="0:0:0.1" 
-                                AutoReverse="True"/>
-                            <ThicknessAnimation
-                                From="0"
-                                To="2"
-                                Duration="0:0:0.1"
-                                Storyboard.TargetProperty="Margin"
-                                AutoReverse="True"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
- 
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Red"></Setter>
-                </Trigger>
- 
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
+    
 </Window>

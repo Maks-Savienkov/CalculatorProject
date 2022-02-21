@@ -10,20 +10,17 @@ namespace Calculator.Command
 {
     public class PlusComand : AbstractCommand
     {
-
         private static string PLUS = " + ";
 
-        public PlusComand(Button button) : base(button)
-        {
-        }
+        public PlusComand(Button button) : base(button) { }
 
         public override double Calculate()
         {
             CommandRecorder.Record(this);
-            return Snapshot.Arguments.sum();
+            return Snapshot.Arguments.Sum();
         }
 
-        public override string getSign()
+        public override string GetSign()
         {
             return PLUS;
         }

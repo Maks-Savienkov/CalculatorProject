@@ -10,7 +10,6 @@ namespace Calculator.Command
 {
     public abstract class AbstractCommand
     {
-
         private const string SPACE = " ";
 
         private ContextSnapshot snapshot;
@@ -28,15 +27,15 @@ namespace Calculator.Command
 
         public virtual string Undo() 
         {
-            if (getSign() == null) 
+            if (GetSign() == null) 
             {
                 return snapshot.Arguments.SecondArg.ToString();
             }
 
-            return snapshot.Arguments.FirstArg + string.Join(getSign(), SPACE, SPACE);
+            return snapshot.Arguments.FirstArg + string.Join(GetSign(), SPACE, SPACE);
         }
 
-        public virtual string getSign()
+        public virtual string GetSign()
         {
             return null;
         }

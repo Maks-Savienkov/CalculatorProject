@@ -19,10 +19,10 @@ namespace Calculator.Command
         public override double Calculate()
         {
             CommandRecorder.Record(this);
-            return Snapshot.Arguments.pow();
+            return Snapshot.Arguments.Pow();
         }
 
-        public override string getSign()
+        public override string GetSign()
         {
             return POW_SYMBOL;
         }

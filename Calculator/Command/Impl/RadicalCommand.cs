@@ -20,7 +20,7 @@ namespace Calculator.Command
             CommandRecorder.Record(this);
             Snapshot.Arguments.SecondArg = 0.5;
 
-            return (double) (Snapshot.Arguments.SecondArg = Snapshot.Arguments.pow());
+            return (double) (Snapshot.Arguments.SecondArg = Snapshot.Arguments.Pow());
         }
 
         public override string Undo()

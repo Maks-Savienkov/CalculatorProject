@@ -30,22 +30,22 @@ namespace Calculator.Dto
             return new ArgumentsBuilder();
         }
 
-        public double sum()
+        public double Sum()
         {
             return firstArg + secondArg.Value;
         }
 
-        public double diff()
+        public double Diff()
         {
             return firstArg - secondArg.Value;
         }
 
-        public double product()
+        public double Product()
         {
             return firstArg * secondArg.Value;
         }
 
-        public double fraction()
+        public double Fraction()
         {
             if (secondArg == 0) 
             {
@@ -54,7 +54,7 @@ namespace Calculator.Dto
             return firstArg / secondArg.Value;
         }
 
-        public double pow() 
+        public double Pow() 
         {
             if (FirstArg <= 0) 
             {

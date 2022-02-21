@@ -10,7 +10,7 @@ namespace Calculator.Converter
 {
     public static class ContextConverter
     {
-        public static ContextSnapshot toSnapshot(CalculationContext context) 
+        public static ContextSnapshot ToSnapshot(CalculationContext context) 
         {
             return ContextSnapshot
                 .Builder()
@@ -25,7 +25,7 @@ namespace Calculator.Converter
                 .Build();
         }
 
-        public static CalculationContext toContext(ContextSnapshot snapshot)
+        public static CalculationContext ToContext(ContextSnapshot snapshot)
         {
             CalculationContext context = new CalculationContext();
             context.ShouldReplaceResult = snapshot.ShouldReplaceResult;
