@@ -13,7 +13,9 @@ namespace Calculator.Command
         private const string SPACE = " ";
 
         private ContextSnapshot snapshot;
-        private Button button; 
+        private Button button;
+
+        public ArithmeticException Exception { get; protected set; }
 
         protected AbstractCommand(Button button)
         {

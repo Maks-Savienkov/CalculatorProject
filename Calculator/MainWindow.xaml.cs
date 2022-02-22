@@ -21,14 +21,12 @@ using Calculator.Util;
 
 namespace Calculator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private CalculationContext context;
         private AbstractCommand nextCommand;
-        public bool IsBurgerButtonActivated { get; set; } = false;
+
+        private bool isBurgerButtonActivated;
 
         public MainWindow()
         {
@@ -39,59 +37,33 @@ namespace Calculator
             HoldMenu.Width = new GridLength(0, GridUnitType.Star);
         }
 
-        private void Num_1_Button_Click(object sender, RoutedEventArgs e)
+        private void Num_Button_Click(object sender, RoutedEventArgs e)
         {
-            HandleNumberButtonClick("1");
-        }
-
-        private void Num_2_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("2");
-        }
-
-        private void Num_3_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("3");
-        }
-
-        private void Num_4_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("4");
-        }
-
-        private void Num_5_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("5");
-        }
-
-        private void Num_6_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("6");
-        }
-
-        private void Num_7_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("7");
-        }
-
-        private void Num_8_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("8");
-        }
-
-        private void Num_9_Button_Click(object sender, RoutedEventArgs e)
-        {
-            HandleNumberButtonClick("9");
+            HandleNumberButtonClick(((Button) sender).Content.ToString());
         }
 
         private void Num_0_Button_Click(object sender, RoutedEventArgs e)
         {
-            HandleZeroButtonClick(WindowUtil.ZERO);
+            if (context.ShouldReplaceResult)
+            {
+                MainScreen.Text = WindowUtil.ZERO;
+            }
+            else if (MainScreen.Text != WindowUtil.ZERO)
+            {
+                MainScreen.Text += WindowUtil.ZERO;
+            }
         }
 
         private void Num_00_Button_Click(object sender, RoutedEventArgs e)
         {
-            HandleZeroButtonClick("00");
+            if (context.ShouldReplaceResult)
+            {
+                MainScreen.Text = WindowUtil.ZERO;
+            }
+            else if (MainScreen.Text != WindowUtil.ZERO)
+            {
+                MainScreen.Text += "00";
+            }
         }
 
         private void Clear_Button_Click(object sender, RoutedEventArgs e)
@@ -125,9 +97,9 @@ namespace Calculator
             {
                 nextCommand.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
                 ExpressionScreen.Text = nextCommand.Undo();
-                double? lastArgument = nextCommand.Snapshot.Arguments.SecondArg == null ? 
-                    nextCommand.Snapshot.Arguments.FirstArg : nextCommand.Snapshot.Arguments.SecondArg;
-                MainScreen.Text = lastArgument.ToString();
+                MainScreen.Text = nextCommand.Snapshot.Arguments.SecondArg == null 
+                    ? nextCommand.Exception.Message 
+                    : nextCommand.Snapshot.Arguments.SecondArg.ToString();
                 context = ContextConverter.ToContext(nextCommand.Snapshot);
             }
         }
@@ -182,49 +154,62 @@ namespace Calculator
             HandleSingleArgArithmeticOperation(new LnCommand(LnButton));
         }
 
+        private void Screen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back)
+            {
+                HandleBackspaceButtonClick();
+            }
+            else if (WindowUtil.NUMBER_KEYS.Contains(e.Key))
+            {
+                string key = e.Key.ToString();
+                HandleNumberButtonClick(key.Substring(key.Length - 1));
+            }
+            else if (e.Key == Key.Decimal || e.Key == Key.OemPeriod)
+            {
+                HandleDotButtonClick();
+            }
+
+            MainScreen.SelectionStart = MainScreen.Text.Length;
+            e.Handled = true;
+        }
+
         private void BurgerButton_Click(object sender, RoutedEventArgs e)
         {
             double wdth = CalculatorWindow.MinWidth;
-            if (IsBurgerButtonActivated == false)
+            if (!isBurgerButtonActivated)
             {
                 CalculatorWindow.MinWidth += wdth / 5;
                 HoldMenu.Width = new GridLength(1, GridUnitType.Star);
-                IsBurgerButtonActivated = true;
+                isBurgerButtonActivated = true;
             }
             else
             {
                 HoldMenu.Width = new GridLength(0, GridUnitType.Star);
-                IsBurgerButtonActivated = false;
-                CalculatorWindow.MinWidth = 425;
+                isBurgerButtonActivated = false;
+                CalculatorWindow.MinWidth = WindowUtil.INITIAL_MIN_WIDTH;
                 if (CalculatorWindow.Width <= wdth + 1)
                 {
-                    CalculatorWindow.Width = 425;
+                    CalculatorWindow.Width = WindowUtil.INITIAL_MIN_WIDTH;
                 }
             }
         }
 
         private void HandleNumberButtonClick(string number)
         {
-            if (context.ShouldReplaceResult || MainScreen.Text == WindowUtil.ZERO)
+            if (context.ShouldReplaceResult) 
             {
                 context.ShouldReplaceResult = false;
+                ExpressionScreen.Text = WindowUtil.EMPTY;
+                MainScreen.Text = number;
+            } 
+            else if (MainScreen.Text == WindowUtil.ZERO)
+            {
                 MainScreen.Text = number;
             }
             else
             {
                 MainScreen.Text += number;
-            }
-        }
-
-        private void HandleZeroButtonClick(string text)
-        {
-            if (context.ShouldReplaceResult)
-            {
-                MainScreen.Text = text;
-            }
-            else if (MainScreen.Text != WindowUtil.ZERO)
-            {
-                MainScreen.Text += text;
             }
         }
 
@@ -238,9 +223,13 @@ namespace Calculator
         {
             command.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
             context.ShouldReplaceResult = true;
-            context.Arguments.FirstArg = double.Parse(MainScreen.Text);
-            command.Snapshot = ContextConverter.ToSnapshot(context);
-            ExecuteCommand(command);
+
+            if (double.TryParse(MainScreen.Text, out double arg)) 
+            {
+                context.Arguments.FirstArg = arg;
+                command.Snapshot = ContextConverter.ToSnapshot(context);
+                ExecuteCommand(command);
+            }
         }
 
         private void HandleEqualButtonClick()
@@ -284,6 +273,13 @@ namespace Calculator
                 HandleEqualButtonClick();
             }
 
+            if (!double.TryParse(MainScreen.Text, out double arg)) 
+            {
+                return;
+            }
+                
+            context.Arguments.FirstArg = arg;
+
             command.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
             context.IsArithmeticOperationPressed = true;
             context.ShouldReplaceResult = false;
@@ -294,7 +290,6 @@ namespace Calculator
                 MainScreen.Text += WindowUtil.ZERO;
             }
 
-            context.Arguments.FirstArg = double.Parse(MainScreen.Text);
             ExpressionScreen.Text = MainScreen.Text + command.GetSign();
             MainScreen.Text = WindowUtil.ZERO;
             nextCommand = command;
@@ -316,7 +311,7 @@ namespace Calculator
                 RevertLatestArithmeticOperationButtonColor();
                 nextCommand = null;
             }
-            else if (MainScreen.Text.Length == 1 || !double.TryParse(MainScreen.Text, out double value))
+            else if (MainScreen.Text.Length == 1 || nextCommand.Exception != null)
             {
                 MainScreen.Text = WindowUtil.ZERO;
             }
@@ -338,27 +333,5 @@ namespace Calculator
                 MainScreen.Text += WindowUtil.POINT;
             }
         }
-
-        private void Screen_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Back)
-            {
-                HandleBackspaceButtonClick();
-            }
-            else if (WindowUtil.NUMBER_KEYS.Contains(e.Key))
-            {
-                string key = e.Key.ToString();
-                HandleNumberButtonClick(key.Substring(key.Length - 1));
-            }
-            else if (e.Key == Key.Decimal || e.Key == Key.OemPeriod)
-            {
-                HandleDotButtonClick();
-            }
-
-            MainScreen.SelectionStart = MainScreen.Text.Length;
-            e.Handled = true;
-        }
-
-
     }
 }

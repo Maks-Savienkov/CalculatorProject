@@ -19,7 +19,14 @@ namespace Calculator.Command
         public override double Calculate()
         {
             CommandRecorder.Record(this);
-            return Snapshot.Arguments.Pow();
+            try
+            {
+                return Snapshot.Arguments.Pow();
+            }
+            catch (ArithmeticException exc)
+            {
+                throw Exception = exc;
+            }
         }
 
         public override string GetSign()

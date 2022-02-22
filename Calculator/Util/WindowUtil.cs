@@ -17,9 +17,10 @@ namespace Calculator.Util
         public static string ZERO = "0";
         public static string POINT = ".";
 
+        public static int INITIAL_MIN_WIDTH = 425;
+
         public static ISet<Key> NUMBER_KEYS = new HashSet<Key>() 
         {
-            Key.NumPad0,
             Key.NumPad1,
             Key.NumPad2,
             Key.NumPad3,
@@ -30,7 +31,6 @@ namespace Calculator.Util
             Key.NumPad8,
             Key.NumPad9,
 
-            Key.D0,
             Key.D1,
             Key.D2,
             Key.D3,

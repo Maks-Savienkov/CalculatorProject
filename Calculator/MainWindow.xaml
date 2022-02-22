@@ -102,21 +102,21 @@
                 Click="BurgerButton_Click"/>
         
         <Button Grid.Column="0" Grid.Row="2" Click="CE_Button_Click" Style="{StaticResource RoundCorner}">CE</Button>
-        <Button Grid.Column="0" Grid.Row="3" Click="Num_7_Button_Click" Style="{StaticResource RoundCorner}">7</Button>
-        <Button Grid.Column="0" Grid.Row="4" Click="Num_4_Button_Click" Style="{StaticResource RoundCorner}">4</Button>
-        <Button Grid.Column="0" Grid.Row="5" Click="Num_1_Button_Click" Style="{StaticResource RoundCorner}">1</Button>
+        <Button Grid.Column="0" Grid.Row="3" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">7</Button>
+        <Button Grid.Column="0" Grid.Row="4" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">4</Button>
+        <Button Grid.Column="0" Grid.Row="5" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">1</Button>
         <Button Grid.Column="0" Grid.Row="6" Click="Num_00_Button_Click" Style="{StaticResource RoundCorner}">00</Button>
 
         <Button Grid.Column="1" Grid.Row="2" Click="Clear_Button_Click" Style="{StaticResource RoundCorner}">C</Button>
-        <Button Grid.Column="1" Grid.Row="3" Click="Num_8_Button_Click" Style="{StaticResource RoundCorner}">8</Button>
-        <Button Grid.Column="1" Grid.Row="4" Click="Num_5_Button_Click" Style="{StaticResource RoundCorner}">5</Button>
-        <Button Grid.Column="1" Grid.Row="5" Click="Num_2_Button_Click" Style="{StaticResource RoundCorner}">2</Button>
+        <Button Grid.Column="1" Grid.Row="3" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">8</Button>
+        <Button Grid.Column="1" Grid.Row="4" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">5</Button>
+        <Button Grid.Column="1" Grid.Row="5" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">2</Button>
         <Button Grid.Column="1" Grid.Row="6" Click="Num_0_Button_Click" Style="{StaticResource RoundCorner}">0</Button>
 
         <Button Grid.Column="2" Grid.Row="2" Click="BackSpace_Button_Click" Style="{StaticResource RoundCorner}">⌫</Button>
-        <Button Grid.Column="2" Grid.Row="3" Click="Num_9_Button_Click" Style="{StaticResource RoundCorner}">9</Button>
-        <Button Grid.Column="2" Grid.Row="4" Click="Num_6_Button_Click" Style="{StaticResource RoundCorner}">6</Button>
-        <Button Grid.Column="2" Grid.Row="5" Click="Num_3_Button_Click" Style="{StaticResource RoundCorner}">3</Button>
+        <Button Grid.Column="2" Grid.Row="3" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">9</Button>
+        <Button Grid.Column="2" Grid.Row="4" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">6</Button>
+        <Button Grid.Column="2" Grid.Row="5" Click="Num_Button_Click" Style="{StaticResource RoundCorner}">3</Button>
         <Button Grid.Column="2" Grid.Row="6" Click="Dot_Button_Click" Style="{StaticResource RoundCorner}">.</Button>
 
         <Button Grid.Column="3" Grid.Row="2" Click="Divide_Button_Click" x:Name="DivideButton" Style="{StaticResource RoundCorner}">÷</Button>

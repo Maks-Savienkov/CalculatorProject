@@ -18,12 +18,13 @@ namespace Calculator.Command
 
         public override double Calculate()
         {
+            CommandRecorder.Record(this);
             if (Snapshot.Arguments.FirstArg <= 0) 
             {
-                throw new ArithmeticException("Error");
+                throw Exception = new ArithmeticException("Error");
             }
-
-            return Math.Log(Snapshot.Arguments.FirstArg);
+            
+            return (double) (Snapshot.Arguments.SecondArg = Math.Log(Snapshot.Arguments.FirstArg));
         }
 
         public override string Undo()
