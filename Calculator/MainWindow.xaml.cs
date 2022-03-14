@@ -92,7 +92,11 @@ namespace Calculator
         private void CE_Button_Click(object sender, RoutedEventArgs e)
         {
             RevertLatestArithmeticOperationButtonColor();
-            nextCommand = CommandRecorder.Revert();
+            AbstractCommand revertedCommand = CommandRecorder.Revert();
+            if (revertedCommand != null) 
+            {
+                nextCommand = revertedCommand;
+            }
             if (nextCommand != null)
             {
                 nextCommand.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
