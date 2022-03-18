@@ -315,7 +315,7 @@ namespace Calculator
                 RevertLatestArithmeticOperationButtonColor();
                 nextCommand = null;
             }
-            else if (MainScreen.Text.Length == 1 || nextCommand.Exception != null)
+            else if (MainScreen.Text.Length == 1 || MainScreen.Text.Length == 2 && MainScreen.Text.StartsWith("-") || nextCommand != null && nextCommand.Exception != null)
             {
                 MainScreen.Text = WindowUtil.ZERO;
             }
