@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator.Dto
 {
     public class Arguments
     {
-
         private double firstArg;
         private double? secondArg;
 
@@ -47,16 +42,16 @@ namespace Calculator.Dto
 
         public double Fraction()
         {
-            if (secondArg == 0) 
+            if (secondArg == 0)
             {
                 throw new DivideByZeroException("Division by zero");
             }
             return firstArg / secondArg.Value;
         }
 
-        public double Pow() 
+        public double Pow()
         {
-            if (FirstArg <= 0) 
+            if (FirstArg <= 0)
             {
                 throw new ArithmeticException("Error");
             }

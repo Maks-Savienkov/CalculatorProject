@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Calculator.Command
@@ -22,9 +18,9 @@ namespace Calculator.Command
 
             try
             {
-                return (double) (Snapshot.Arguments.SecondArg = Snapshot.Arguments.Pow());
+                return (double)(Snapshot.Arguments.SecondArg = Snapshot.Arguments.Pow());
             }
-            catch (ArithmeticException exc) 
+            catch (ArithmeticException exc)
             {
                 Snapshot.Arguments.SecondArg = null;
                 throw Exception = exc;

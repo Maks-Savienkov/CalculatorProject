@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Calculator.Command
@@ -19,12 +15,12 @@ namespace Calculator.Command
         public override double Calculate()
         {
             CommandRecorder.Record(this);
-            if (Snapshot.Arguments.FirstArg <= 0) 
+            if (Snapshot.Arguments.FirstArg <= 0)
             {
                 throw Exception = new ArithmeticException("Error");
             }
-            
-            return (double) (Snapshot.Arguments.SecondArg = Math.Log(Snapshot.Arguments.FirstArg));
+
+            return (double)(Snapshot.Arguments.SecondArg = Math.Log(Snapshot.Arguments.FirstArg));
         }
 
         public override string Undo()

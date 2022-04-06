@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Calculator.Dto
+﻿namespace Calculator.Dto
 {
     public class ContextSnapshot
     {
@@ -21,14 +15,14 @@ namespace Calculator.Dto
         private bool isArithmeticOperationPressed;
 
         private Arguments arguments;
-        
+
         public bool IsDotPressed { get => isDotPressed; set => isDotPressed = value; }
         public bool ShouldReplaceResult { get => shouldReplaceResult; set => shouldReplaceResult = value; }
         public bool IsArithmeticOperationPressed { get => isArithmeticOperationPressed; set => isArithmeticOperationPressed = value; }
 
         public Arguments Arguments { get => arguments; set => arguments = value; }
 
-        public static ContextSnapshotBuilder Builder() 
+        public static ContextSnapshotBuilder Builder()
         {
             return new ContextSnapshotBuilder();
         }
@@ -41,7 +35,7 @@ namespace Calculator.Dto
 
             private Arguments arguments;
 
-            public ContextSnapshotBuilder SetIsDotPressed(bool isDotPressed) 
+            public ContextSnapshotBuilder SetIsDotPressed(bool isDotPressed)
             {
                 this.isDotPressed = isDotPressed;
                 return this;
@@ -65,7 +59,7 @@ namespace Calculator.Dto
                 return this;
             }
 
-            public ContextSnapshot Build() 
+            public ContextSnapshot Build()
             {
                 return new ContextSnapshot(isDotPressed, shouldReplaceResult, isArithmeticOperationPressed, arguments);
             }

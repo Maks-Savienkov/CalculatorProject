@@ -1,9 +1,5 @@
-﻿using System;
-using Calculator.Dto;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Calculator.Dto;
+using System;
 using System.Windows.Controls;
 
 namespace Calculator.Command
@@ -27,9 +23,9 @@ namespace Calculator.Command
 
         public abstract double Calculate();
 
-        public virtual string Undo() 
+        public virtual string Undo()
         {
-            if (GetSign() == null) 
+            if (GetSign() == null)
             {
                 return snapshot.Arguments.SecondArg.ToString();
             }

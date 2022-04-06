@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Calculator.Command
@@ -24,7 +20,7 @@ namespace Calculator.Command
             {
                 return Snapshot.Arguments.Fraction();
             }
-            catch (DivideByZeroException exc) 
+            catch (DivideByZeroException exc)
             {
                 throw Exception = exc;
             }

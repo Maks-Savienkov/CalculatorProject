@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -19,7 +15,7 @@ namespace Calculator.Util
 
         public static int INITIAL_MIN_WIDTH = 425;
 
-        public static ISet<Key> NUMBER_KEYS = new HashSet<Key>() 
+        public static ISet<Key> NUMBER_KEYS = new HashSet<Key>()
         {
             Key.NumPad1,
             Key.NumPad2,

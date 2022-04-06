@@ -1,16 +1,10 @@
 ﻿using Calculator.Dto;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Calculator.Converter
 {
     public static class ContextConverter
     {
-        public static ContextSnapshot ToSnapshot(CalculationContext context) 
+        public static ContextSnapshot ToSnapshot(CalculationContext context)
         {
             return ContextSnapshot
                 .Builder()
@@ -29,8 +23,8 @@ namespace Calculator.Converter
         {
             CalculationContext context = new CalculationContext();
             context.ShouldReplaceResult = snapshot.ShouldReplaceResult;
-            context.IsArithmeticOperationPressed = snapshot.IsArithmeticOperationPressed;   
-            context.IsDotPressed = snapshot.IsDotPressed;   
+            context.IsArithmeticOperationPressed = snapshot.IsArithmeticOperationPressed;
+            context.IsDotPressed = snapshot.IsDotPressed;
             context.Arguments = snapshot.Arguments;
 
             return context;

@@ -1,23 +1,13 @@
 ﻿using Calculator.Command;
-using Calculator.Dto;
 using Calculator.Converter;
-
+using Calculator.Dto;
+using Calculator.Util;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Calculator.Util;
 
 namespace Calculator
 {
@@ -39,7 +29,7 @@ namespace Calculator
 
         private void Num_Button_Click(object sender, RoutedEventArgs e)
         {
-            HandleNumberButtonClick(((Button) sender).Content.ToString());
+            HandleNumberButtonClick(((Button)sender).Content.ToString());
         }
 
         private void Num_0_Button_Click(object sender, RoutedEventArgs e)
@@ -93,7 +83,7 @@ namespace Calculator
         {
             RevertLatestArithmeticOperationButtonColor();
             AbstractCommand revertedCommand = CommandRecorder.Revert();
-            if (revertedCommand != null) 
+            if (revertedCommand != null)
             {
                 nextCommand = revertedCommand;
             }
@@ -101,8 +91,8 @@ namespace Calculator
             {
                 nextCommand.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
                 ExpressionScreen.Text = nextCommand.Undo();
-                MainScreen.Text = nextCommand.Snapshot.Arguments.SecondArg == null 
-                    ? nextCommand.Exception.Message 
+                MainScreen.Text = nextCommand.Snapshot.Arguments.SecondArg == null
+                    ? nextCommand.Exception.Message
                     : nextCommand.Snapshot.Arguments.SecondArg.ToString();
                 context = ContextConverter.ToContext(nextCommand.Snapshot);
             }
@@ -201,12 +191,12 @@ namespace Calculator
 
         private void HandleNumberButtonClick(string number)
         {
-            if (context.ShouldReplaceResult) 
+            if (context.ShouldReplaceResult)
             {
                 context.ShouldReplaceResult = false;
                 ExpressionScreen.Text = WindowUtil.EMPTY;
                 MainScreen.Text = number;
-            } 
+            }
             else if (MainScreen.Text == WindowUtil.ZERO)
             {
                 MainScreen.Text = number;
@@ -228,7 +218,7 @@ namespace Calculator
             command.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
             context.ShouldReplaceResult = true;
 
-            if (double.TryParse(MainScreen.Text, out double arg)) 
+            if (double.TryParse(MainScreen.Text, out double arg))
             {
                 context.Arguments.FirstArg = arg;
                 command.Snapshot = ContextConverter.ToSnapshot(context);
@@ -277,11 +267,11 @@ namespace Calculator
                 HandleEqualButtonClick();
             }
 
-            if (!double.TryParse(MainScreen.Text, out double arg)) 
+            if (!double.TryParse(MainScreen.Text, out double arg))
             {
                 return;
             }
-                
+
             context.Arguments.FirstArg = arg;
 
             command.Button.Background = WindowUtil.ACTIVE_OPERATION_BRUSH;
@@ -299,7 +289,7 @@ namespace Calculator
             nextCommand = command;
         }
 
-        private void RevertLatestArithmeticOperationButtonColor() 
+        private void RevertLatestArithmeticOperationButtonColor()
         {
             if (nextCommand != null)
             {
@@ -307,7 +297,7 @@ namespace Calculator
             }
         }
 
-        private void HandleBackspaceButtonClick() 
+        private void HandleBackspaceButtonClick()
         {
             if (MainScreen.Text == WindowUtil.ZERO)
             {
@@ -329,7 +319,7 @@ namespace Calculator
             }
         }
 
-        private void HandleDotButtonClick() 
+        private void HandleDotButtonClick()
         {
             if (!context.IsDotPressed && !context.ShouldReplaceResult)
             {
